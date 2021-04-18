@@ -1,0 +1,12 @@
+# dependencies
+node_modules/
+
+# misc
+.cache
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ignore package-lock files (only use yarn.lock)
+package-lock.json
