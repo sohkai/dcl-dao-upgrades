@@ -42,9 +42,9 @@ const RINKEBY_CONFIG = {
   communityVoting: '0x5616500b003475136ee6b0844896a2e1ccc68140',
   agent: '0x40a056bd2ec121b5966df0f3270a392d07e52629',
   catalyst: '0x594709fed0d43fdf511e3ba055e4da14a8f6b53b',
-  poiList: null,
-  nameList: null,
-  committeeToken: '0x0000000000000000000000000000000000000000', // TODO
+  poiList: '0xde839e6cee47d9e24ac12e9215b7a45112923141',
+  nameList: '0x8b8fc0e17c2900d669cc883e3b067e4135362402',
+  committeeToken: '0x47ce1be72731812a60974c855c34618f9a167e7f',
   initialCommittee: [
     '0x3323B7264F7D5e8f98e6aFCcec73b6bA1116AE19',
     '0xfe91C0c482E09600f2d1DBCA10FD705BC6de60bc',
@@ -231,7 +231,7 @@ async function main() {
   console.log(`    ${sabForwardDataForTokenManager}`)
   console.log()
   console.log('  Send as raw transaction with:')
-  console.log(`    { "to": "${sabTokenManager}", "data": "${sabForwardDataForTokenManager}" })`)
+  console.log(`    { "to": "${sabTokenManager}", "data": "${sabForwardDataForTokenManager}" }`)
   console.log()
   if (DEBUG) {
     console.log(`Calls script steps for installing Committee Token Manager (length: ${installCommitteeTokenManagerScriptSteps.length}):`)
@@ -433,7 +433,7 @@ async function main() {
   console.log(`    ${sabForwardDataForDelay}`)
   console.log()
   console.log('  Send as raw transaction with:')
-  console.log(`    { "to": "${sabTokenManager}", "data": "${sabForwardDataForDelay}" })`)
+  console.log(`    { "to": "${sabTokenManager}", "data": "${sabForwardDataForDelay}" }`)
   if (DEBUG) {
     console.log(`Calls script steps for installing Committee Delay (length: ${installCommitteeDelayScriptSteps.length}):`)
     console.log(installCommitteeDelayScriptSteps)
