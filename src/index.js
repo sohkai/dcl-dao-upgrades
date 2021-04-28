@@ -370,7 +370,7 @@ async function main() {
         [
           committeeDelay,               // Who
           catalyst,                     // Where
-          roles.AGENT_RUN_SCRIPT_ROLE,  // What
+          roles.CATALYST_MODIFY_ROLE,   // What
         ]
       )
     },
