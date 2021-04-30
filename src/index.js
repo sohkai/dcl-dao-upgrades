@@ -22,6 +22,7 @@ const MAINNET_CONFIG = {
   sabTokenManager: '0xb43504e5381ec9941cead3d74377cb63cba3b901',
   communityVoting: '0x2aa9074caa11e30838caf681d34b981ffd025a8b',
   agent: '0x9a6ebe7e2a7722f8200d0ffb63a1f6406a0d7dce',
+  finance: '0x08cde5fec827ecad8c2ef0ed5b895ab38409dd43',
   catalyst: '0x4a2f10076101650f40342885b99b6b101d83c486',
   poiList: '0x0ef15a1c7a49429a36cb46d4da8c53119242b54e',
   nameList: '0x0c4c90a4f29872a2e9ef4c4be3d419792bca9a36',
@@ -41,6 +42,7 @@ const RINKEBY_CONFIG = {
   sabTokenManager: '0xd871799aecc2a29443509ae8880a33f26924d804',
   communityVoting: '0x5616500b003475136ee6b0844896a2e1ccc68140',
   agent: '0x40a056bd2ec121b5966df0f3270a392d07e52629',
+  finance: '0x7cd2df9217173528110e2c44eb18bd4cf0bbc601',
   catalyst: '0x594709fed0d43fdf511e3ba055e4da14a8f6b53b',
   poiList: '0xde839e6cee47d9e24ac12e9215b7a45112923141',
   nameList: '0x8b8fc0e17c2900d669cc883e3b067e4135362402',
@@ -74,6 +76,7 @@ const {
   sabTokenManager,
   communityVoting,
   agent,
+  finance,
   catalyst,
   poiList,
   nameList,
@@ -359,6 +362,18 @@ async function main() {
           committeeDelay,               // Who
           agent,                        // Where
           roles.AGENT_RUN_SCRIPT_ROLE,  // What
+        ]
+      )
+    },
+    // Grant Finance's create payments permission
+    {
+      to: acl,
+      data: finance && abi.encodeFunctionCall(
+        abis.ACL_GRANT_PERMISSION,
+        [
+          committeeDelay,                      // Who
+          finance,                             // Where
+          roles.FINANCE_CREATE_PAYMENTS_ROLE,  // What
         ]
       )
     },
