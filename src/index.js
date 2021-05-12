@@ -26,7 +26,7 @@ const MAINNET_CONFIG = {
   catalyst: '0x4a2f10076101650f40342885b99b6b101d83c486',
   poiList: '0x0ef15a1c7a49429a36cb46d4da8c53119242b54e',
   nameList: '0x0c4c90a4f29872a2e9ef4c4be3d419792bca9a36',
-  committeeToken: '0x0000000000000000000000000000000000000000', // TODO
+  committeeToken: '0x5852f3d6307aeae101324a78c7e95eabaf4e20cc',
   initialCommittee: [
     '0x3323B7264F7D5e8f98e6aFCcec73b6bA1116AE19',
     '0xfe91C0c482E09600f2d1DBCA10FD705BC6de60bc',
@@ -105,6 +105,7 @@ async function main() {
   console.log("This organization will be targetted:")
   console.log(`  - Url:                   ${orgUrl}`)
   console.log(`  - Kernel:                ${kernel}`)
+  console.log(`    - Nonce:               ${kernelNonce}`)
   console.log(`  - ACL:                   ${acl}`)
   console.log(`  - SAB Voting:            ${sabVoting}`)
   console.log(`  - SAB Token Manager:     ${sabTokenManager}`)
@@ -135,6 +136,7 @@ async function main() {
   console.log(`    - And being granted permissions:`)
   console.log(`      + Agent:EXECUTE_ACTIONS`)
   console.log(`      + Agent:RUN_SCRIPT_ROLE`)
+  console.log(`      + Finance:CREATE_PAYMENTS_ROLE`)
   console.log(`      + Catalyst:MODIFY_ROLE`)
   console.log(`      + PoiList:ADD_ROLE`)
   console.log(`      + PoiList:REMOVE_ROLE`)
@@ -450,6 +452,7 @@ async function main() {
   console.log('  Send as raw transaction with:')
   console.log(`    { "to": "${sabTokenManager}", "data": "${sabForwardDataForDelay}" }`)
   if (DEBUG) {
+    console.log()
     console.log(`Calls script steps for installing Committee Delay (length: ${installCommitteeDelayScriptSteps.length}):`)
     console.log(installCommitteeDelayScriptSteps)
     console.log()
