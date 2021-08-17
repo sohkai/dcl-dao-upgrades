@@ -1,5 +1,5 @@
 const abi = require('web3-eth-abi')
-const abis = require('./abis')
+const abis = require('../abis')
 
 const CALLSCRIPT_ID = '0x00000001'
 const EMPTY_CALLSCRIPT = '0x00000001'
