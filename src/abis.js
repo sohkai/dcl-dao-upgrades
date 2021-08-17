@@ -205,6 +205,62 @@ const DELAY_INITIALIZE = {
   "type": "function"
 }
 
+const CATALYST_REMOVE_CATALYST = {
+  "constant": false,
+  "inputs": [
+    {
+      "name": "_id",
+      "type": "bytes32"
+    }
+  ],
+  "name": "removeCatalyst",
+  "outputs": [
+  ],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "function"
+}
+
+const AGENT_EXECUTE = {
+  "constant": false,
+  "inputs": [
+    {
+      "name": "_target",
+      "type": "address"
+    },
+    {
+      "name": "_ethValue",
+      "type": "uint256"
+    },
+    {
+      "name": "_data",
+      "type": "bytes"
+    }
+  ],
+  "name": "execute",
+  "outputs": [
+  ],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "function"
+}
+
+const CHANGE_ADMIN = {
+  "constant": false,
+  "inputs": [
+    {
+      "name": "newAdmin",
+      "type": "address"
+    }
+  ],
+  "name": "changeAdmin",
+  "outputs": [
+  ],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "function"
+}
+
 module.exports = {
   FORWARD,
   KERNEL_NEW_APP_INSTANCE,
@@ -215,4 +271,7 @@ module.exports = {
   TOKEN_MANAGER_INITIALIZE,
   TOKEN_MANAGER_MINT,
   DELAY_INITIALIZE,
+  CATALYST_REMOVE_CATALYST,
+  AGENT_EXECUTE,
+  CHANGE_ADMIN,
 }
