@@ -23,6 +23,18 @@ const apps = {
       }
     },
   },
+  list: {
+    appId: namehash('dcl-list.open.aragonpm.eth'),
+    getBaseAddress() {
+      if (NETWORK === 'mainnet') {
+        return '0x21b6EFf834d7cc8c12A5Ec924939aa521F0FE83F'
+      } else if (NETWORK === 'rinkeby') {
+        return '0xEBfcA27852362676Ac9f263571dADa0e09C2Aa6F'
+      } else {
+        throw new Error('App (List) not found on network:', NETWORK)
+      }
+    },
+  },
   tokenManager: {
     appId: namehash('token-manager.aragonpm.eth'),
     getBaseAddress() {

@@ -1,3 +1,4 @@
+// Forwarding
 const FORWARD = {
   constant: false,
   inputs: [
@@ -13,6 +14,7 @@ const FORWARD = {
   type: 'function',
 }
 
+// App-specific
 const KERNEL_NEW_APP_INSTANCE = {
   constant: false,
   inputs: [
@@ -237,6 +239,30 @@ const AGENT_EXECUTE = {
   type: 'function',
 }
 
+const LIST_INITIALIZE = {
+  constant: false,
+  inputs: [
+    {
+      name: '_name',
+      type: 'string',
+    },
+    {
+      name: '_symbol',
+      type: 'string',
+    },
+    {
+      name: '_type',
+      type: 'string',
+    },
+  ],
+  name: 'initialize',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
+// External contracts
 const CHANGE_ADMIN = {
   constant: false,
   inputs: [
@@ -253,7 +279,10 @@ const CHANGE_ADMIN = {
 }
 
 module.exports = {
+  // Forwarding
   FORWARD,
+
+  // App-specific
   KERNEL_NEW_APP_INSTANCE,
   ACL_CREATE_PERMISSION,
   ACL_GRANT_PERMISSION,
@@ -264,5 +293,8 @@ module.exports = {
   DELAY_INITIALIZE,
   CATALYST_REMOVE_CATALYST,
   AGENT_EXECUTE,
+  LIST_INITIALIZE,
+
+  // External contracdts
   CHANGE_ADMIN,
 }

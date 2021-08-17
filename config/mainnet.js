@@ -5,6 +5,8 @@ module.exports = {
   sabVoting: '0x41e83d829459f99bf4ee2e26d0d79748fb16b94f',
   sabTokenManager: '0xb43504e5381ec9941cead3d74377cb63cba3b901',
   communityVoting: '0x2aa9074caa11e30838caf681d34b981ffd025a8b',
+  communityDelay: '0x4c0071d31cc9aecb8748c686b56cdb0a2cb08b21',
+  councilDelay: '0x568ecf5ee9f9273143560a046c3e4f43e8666721',
   agent: '0x9a6ebe7e2a7722f8200d0ffb63a1f6406a0d7dce',
   finance: '0x08cde5fec827ecad8c2ef0ed5b895ab38409dd43',
   catalyst: '0x4a2f10076101650f40342885b99b6b101d83c486',

@@ -86,8 +86,8 @@ async function main() {
     console.log(`      - ${member}`)
   }
   console.log(`    - Setting permissions:`)
-  console.log(`      + CommitteeTokenManager:MINT_TOKENS    => Community Voting <> SAB Voting`)
-  console.log(`      + CommitteeTokenManager:BURN_TOKENS    => Community Voting <> SAB Voting`)
+  console.log(`      + CommitteeTokenManager:MINT_ROLE    => Community Voting <> SAB Voting`)
+  console.log(`      + CommitteeTokenManager:BURN_ROLE    => Community Voting <> SAB Voting`)
   console.log(`  2. Delay mechanism`)
   console.log(`    - Install new Delay (at ${committeeDelay}) with 24hr period`)
   console.log(`    - Setting permissions:`)
