@@ -1,264 +1,255 @@
 const FORWARD = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "evmCallScript",
-      "type": "bytes"
-    }
+      name: 'evmCallScript',
+      type: 'bytes',
+    },
   ],
-  "name": "forward",
-  "outputs": [],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'forward',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const KERNEL_NEW_APP_INSTANCE = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_appId",
-      "type": "bytes32"
+      name: '_appId',
+      type: 'bytes32',
     },
     {
-      "name": "_appBase",
-      "type": "address"
+      name: '_appBase',
+      type: 'address',
     },
     {
-      "name": "_initializePayload",
-      "type": "bytes"
+      name: '_initializePayload',
+      type: 'bytes',
     },
     {
-      "name": "_setDefault",
-      "type": "bool"
-    }
+      name: '_setDefault',
+      type: 'bool',
+    },
   ],
-  "name": "newAppInstance",
-  "outputs": [
+  name: 'newAppInstance',
+  outputs: [
     {
-      "name": "appProxy",
-      "type": "address"
-    }
+      name: 'appProxy',
+      type: 'address',
+    },
   ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const ACL_CREATE_PERMISSION = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_entity",
-      "type": "address"
+      name: '_entity',
+      type: 'address',
     },
     {
-      "name": "_app",
-      "type": "address"
+      name: '_app',
+      type: 'address',
     },
     {
-      "name": "_role",
-      "type": "bytes32"
+      name: '_role',
+      type: 'bytes32',
     },
     {
-      "name": "_manager",
-      "type": "address"
-    }
+      name: '_manager',
+      type: 'address',
+    },
   ],
-  "name": "createPermission",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'createPermission',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const ACL_GRANT_PERMISSION = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_entity",
-      "type": "address"
+      name: '_entity',
+      type: 'address',
     },
     {
-      "name": "_app",
-      "type": "address"
+      name: '_app',
+      type: 'address',
     },
     {
-      "name": "_role",
-      "type": "bytes32"
-    }
+      name: '_role',
+      type: 'bytes32',
+    },
   ],
-  "name": "grantPermission",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'grantPermission',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const ACL_REVOKE_PERMISSION = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_entity",
-      "type": "address"
+      name: '_entity',
+      type: 'address',
     },
     {
-      "name": "_app",
-      "type": "address"
+      name: '_app',
+      type: 'address',
     },
     {
-      "name": "_role",
-      "type": "bytes32"
-    }
+      name: '_role',
+      type: 'bytes32',
+    },
   ],
-  "name": "revokePermission",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'revokePermission',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const VOTING_NEW_VOTE = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_executionScript",
-      "type": "bytes"
+      name: '_executionScript',
+      type: 'bytes',
     },
     {
-      "name": "_metadata",
-      "type": "string"
-    }
+      name: '_metadata',
+      type: 'string',
+    },
   ],
-  "name": "newVote",
-  "outputs": [
+  name: 'newVote',
+  outputs: [
     {
-      "name": "voteId",
-      "type": "uint256"
-    }
+      name: 'voteId',
+      type: 'uint256',
+    },
   ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const TOKEN_MANAGER_INITIALIZE = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_token",
-      "type": "address"
+      name: '_token',
+      type: 'address',
     },
     {
-      "name": "_transferable",
-      "type": "bool"
+      name: '_transferable',
+      type: 'bool',
     },
     {
-      "name": "_maxAccountTokens",
-      "type": "uint256"
-    }
+      name: '_maxAccountTokens',
+      type: 'uint256',
+    },
   ],
-  "name": "initialize",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'initialize',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const TOKEN_MANAGER_MINT = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_receiver",
-      "type": "address"
+      name: '_receiver',
+      type: 'address',
     },
     {
-      "name": "_amount",
-      "type": "uint256"
-    }
+      name: '_amount',
+      type: 'uint256',
+    },
   ],
-  "name": "mint",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'mint',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const DELAY_INITIALIZE = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_executionDelay",
-      "type": "uint64"
-    }
+      name: '_executionDelay',
+      type: 'uint64',
+    },
   ],
-  "name": "initialize",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'initialize',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const CATALYST_REMOVE_CATALYST = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_id",
-      "type": "bytes32"
-    }
+      name: '_id',
+      type: 'bytes32',
+    },
   ],
-  "name": "removeCatalyst",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'removeCatalyst',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const AGENT_EXECUTE = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "_target",
-      "type": "address"
+      name: '_target',
+      type: 'address',
     },
     {
-      "name": "_ethValue",
-      "type": "uint256"
+      name: '_ethValue',
+      type: 'uint256',
     },
     {
-      "name": "_data",
-      "type": "bytes"
-    }
+      name: '_data',
+      type: 'bytes',
+    },
   ],
-  "name": "execute",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'execute',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 const CHANGE_ADMIN = {
-  "constant": false,
-  "inputs": [
+  constant: false,
+  inputs: [
     {
-      "name": "newAdmin",
-      "type": "address"
-    }
+      name: 'newAdmin',
+      type: 'address',
+    },
   ],
-  "name": "changeAdmin",
-  "outputs": [
-  ],
-  "payable": false,
-  "stateMutability": "nonpayable",
-  "type": "function"
+  name: 'changeAdmin',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
 }
 
 module.exports = {

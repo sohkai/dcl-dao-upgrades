@@ -24,5 +24,5 @@ module.exports = {
         throw new Error('Bad network:', network)
       }
     },
-  }
+  },
 }

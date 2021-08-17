@@ -1,6 +1,5 @@
 const ethers = require('ethers')
 const abi = require('web3-eth-abi')
-const BN = require('bn.js')
 
 const abis = require('./abis')
 const apps = require('./apps')
@@ -30,7 +29,7 @@ const MAINNET_CONFIG = {
   initialCommittee: [
     '0x3323B7264F7D5e8f98e6aFCcec73b6bA1116AE19',
     '0xfe91C0c482E09600f2d1DBCA10FD705BC6de60bc',
-    '0xBef99f5f55CF7cDb3a70998C57061B7e1386a9b0'
+    '0xBef99f5f55CF7cDb3a70998C57061B7e1386a9b0',
   ],
 }
 
@@ -91,10 +90,8 @@ const provider = ethers.getDefaultProvider(NETWORK)
 
 async function main() {
   const kernelNonce = await provider.getTransactionCount(kernel)
-  const committeeTokenManager =
-    ethers.utils.getContractAddress({ from: kernel, nonce: kernelNonce })
-  const committeeDelay =
-    ethers.utils.getContractAddress({ from: kernel, nonce: kernelNonce + 1 })
+  const committeeTokenManager = ethers.utils.getContractAddress({ from: kernel, nonce: kernelNonce })
+  const committeeDelay = ethers.utils.getContractAddress({ from: kernel, nonce: kernelNonce + 1 })
 
   console.log()
   console.log('============================================================')
@@ -102,7 +99,7 @@ async function main() {
   console.log(`Planning modifications to the Decentraland DAO on network ${NETWORK}:`)
   console.log('  Install DAO committee and associated delay mechanism')
   console.log()
-  console.log("This organization will be targetted:")
+  console.log('This organization will be targetted:')
   console.log(`  - Url:                   ${orgUrl}`)
   console.log(`  - Kernel:                ${kernel}`)
   console.log(`    - Nonce:               ${kernelNonce}`)
@@ -119,7 +116,7 @@ async function main() {
   console.log(`  1. New token`)
   console.log(`    - Install new Token Manager (at ${committeeTokenManager}) controlling token at ${committeeToken}`)
   console.log(`    - With initial membership of:`)
-  for(const member of initialCommittee) {
+  for (const member of initialCommittee) {
     console.log(`      - ${member}`)
   }
   console.log(`    - Setting permissions:`)
@@ -152,83 +149,67 @@ async function main() {
     // Requires the committeeToken to have already set its controller to committeeTokenManager
     {
       to: kernel,
-      data: abi.encodeFunctionCall(
-        abis.KERNEL_NEW_APP_INSTANCE,
-        [
-          apps.tokenManager.appId,
-          apps.tokenManager.getBaseAddress(NETWORK),
-          // Initialize payload, configure as a "membership" token
-          abi.encodeFunctionCall(
-            abis.TOKEN_MANAGER_INITIALIZE,
-            [
-              committeeToken,
-              false, // non-transferrable
-              '1'    // only allowed one token
-            ]
-          ),
-          false, // not default
-        ],
-      )
+      data: abi.encodeFunctionCall(abis.KERNEL_NEW_APP_INSTANCE, [
+        apps.tokenManager.appId,
+        apps.tokenManager.getBaseAddress(NETWORK),
+        // Initialize payload, configure as a "membership" token
+        abi.encodeFunctionCall(abis.TOKEN_MANAGER_INITIALIZE, [
+          committeeToken,
+          false, // non-transferrable
+          '1', // only allowed one token
+        ]),
+        false, // not default
+      ]),
     },
     // Create mint permission; initially grant to SAB Voting to set initial committee
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_CREATE_PERMISSION,
-        [
-          sabVoting,                      // Who
-          committeeTokenManager,          // Where
-          roles.TOKEN_MANAGER_MINT_ROLE,  // What
-          sabVoting,                      // Manager
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_CREATE_PERMISSION, [
+        sabVoting, // Who
+        committeeTokenManager, // Where
+        roles.TOKEN_MANAGER_MINT_ROLE, // What
+        sabVoting, // Manager
+      ]),
     },
     // Set initial committee
-    ...initialCommittee.map(member => ({
+    ...initialCommittee.map((member) => ({
       to: committeeTokenManager,
       data: abi.encodeFunctionCall(abis.TOKEN_MANAGER_MINT, [member, '1']),
     })),
     // Revoke mint permission from SAB Voting
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_REVOKE_PERMISSION,
-        [
-          sabVoting,                      // Who
-          committeeTokenManager,          // Where
-          roles.TOKEN_MANAGER_MINT_ROLE,  // What
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_REVOKE_PERMISSION, [
+        sabVoting, // Who
+        committeeTokenManager, // Where
+        roles.TOKEN_MANAGER_MINT_ROLE, // What
+      ]),
     },
     // Grant mint permission to Community Voting
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          communityVoting,                // Who
-          committeeTokenManager,          // Where
-          roles.TOKEN_MANAGER_MINT_ROLE,  // What
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+        communityVoting, // Who
+        committeeTokenManager, // Where
+        roles.TOKEN_MANAGER_MINT_ROLE, // What
+      ]),
     },
     // Create burn permission
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_CREATE_PERMISSION,
-        [
-          communityVoting,                // Who
-          committeeTokenManager,          // Where
-          roles.TOKEN_MANAGER_BURN_ROLE,  // What
-          sabVoting,                      // Manager
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_CREATE_PERMISSION, [
+        communityVoting, // Who
+        committeeTokenManager, // Where
+        roles.TOKEN_MANAGER_BURN_ROLE, // What
+        sabVoting, // Manager
+      ]),
     },
   ]
   const installCommitteeTokenManagerCallsScript = encodeCallsScript(installCommitteeTokenManagerScriptSteps)
   const sabVoteForwardDataForTokenManager = encodeForward(installCommitteeTokenManagerCallsScript)
-  const sabVoteForwardCallScriptForTokenManager = encodeCallsScript([{ to: sabVoting, data: sabVoteForwardDataForTokenManager }])
+  const sabVoteForwardCallScriptForTokenManager = encodeCallsScript([
+    { to: sabVoting, data: sabVoteForwardDataForTokenManager },
+  ])
   const sabForwardDataForTokenManager = encodeForward(sabVoteForwardCallScriptForTokenManager)
 
   console.log('Deploy and configure Committee Token Manager')
@@ -239,7 +220,9 @@ async function main() {
   console.log(`    { "to": "${sabTokenManager}", "data": "${sabForwardDataForTokenManager}" }`)
   console.log()
   if (DEBUG) {
-    console.log(`Calls script steps for installing Committee Token Manager (length: ${installCommitteeTokenManagerScriptSteps.length}):`)
+    console.log(
+      `Calls script steps for installing Committee Token Manager (length: ${installCommitteeTokenManagerScriptSteps.length}):`
+    )
     console.log(installCommitteeTokenManagerScriptSteps)
     console.log()
   }
@@ -249,197 +232,165 @@ async function main() {
     // Should deploy to the computed committeeDelay address
     {
       to: kernel,
-      data: abi.encodeFunctionCall(
-        abis.KERNEL_NEW_APP_INSTANCE,
-        [
-          apps.delay.appId,
-          apps.delay.getBaseAddress(NETWORK),
-          // Initialize payload
-          abi.encodeFunctionCall(
-            abis.DELAY_INITIALIZE,
-            [
-              '86400' // 24hrs
-            ]
-          ),
-          false, // not default
-        ],
-      )
+      data: abi.encodeFunctionCall(abis.KERNEL_NEW_APP_INSTANCE, [
+        apps.delay.appId,
+        apps.delay.getBaseAddress(NETWORK),
+        // Initialize payload
+        abi.encodeFunctionCall(abis.DELAY_INITIALIZE, [
+          '86400', // 24hrs
+        ]),
+        false, // not default
+      ]),
     },
     // Create set delay permission
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_CREATE_PERMISSION,
-        [
-          sabVoting,                   // Who
-          committeeDelay,              // Where
-          roles.DELAY_SET_DELAY_ROLE,  // What
-          sabVoting,                   // Manager
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_CREATE_PERMISSION, [
+        sabVoting, // Who
+        committeeDelay, // Where
+        roles.DELAY_SET_DELAY_ROLE, // What
+        sabVoting, // Manager
+      ]),
     },
     // Create execution permission
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_CREATE_PERMISSION,
-        [
-          committeeTokenManager,       // Who
-          committeeDelay,              // Where
-          roles.DELAY_EXECUTION_ROLE,  // What
-          sabVoting,                   // Manager
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_CREATE_PERMISSION, [
+        committeeTokenManager, // Who
+        committeeDelay, // Where
+        roles.DELAY_EXECUTION_ROLE, // What
+        sabVoting, // Manager
+      ]),
     },
     // Create pause execution permission
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_CREATE_PERMISSION,
-        [
-          sabVoting,                        // Who
-          committeeDelay,                   // Where
-          roles.DELAY_PAUSE_EXECUTION_ROLE, // What
-          sabVoting,                        // Manager
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_CREATE_PERMISSION, [
+        sabVoting, // Who
+        committeeDelay, // Where
+        roles.DELAY_PAUSE_EXECUTION_ROLE, // What
+        sabVoting, // Manager
+      ]),
     },
     // Grant pause execution permission to committee
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeTokenManager,             // Who
-          committeeDelay,                    // Where
-          roles.DELAY_PAUSE_EXECUTION_ROLE,  // What
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+        committeeTokenManager, // Who
+        committeeDelay, // Where
+        roles.DELAY_PAUSE_EXECUTION_ROLE, // What
+      ]),
     },
     // Create resume execution permission
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_CREATE_PERMISSION,
-        [
-          sabVoting,                          // Who
-          committeeDelay,                     // Where
-          roles.DELAY_RESUME_EXECUTION_ROLE,  // What
-          sabVoting,                          // Manager
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_CREATE_PERMISSION, [
+        sabVoting, // Who
+        committeeDelay, // Where
+        roles.DELAY_RESUME_EXECUTION_ROLE, // What
+        sabVoting, // Manager
+      ]),
     },
     // Create cancel execution permission
     {
       to: acl,
-      data: abi.encodeFunctionCall(
-        abis.ACL_CREATE_PERMISSION,
-        [
-          sabVoting,                          // Who
-          committeeDelay,                     // Where
-          roles.DELAY_CANCEL_EXECUTION_ROLE,  // What
-          sabVoting,                          // Manager
-        ]
-      )
+      data: abi.encodeFunctionCall(abis.ACL_CREATE_PERMISSION, [
+        sabVoting, // Who
+        committeeDelay, // Where
+        roles.DELAY_CANCEL_EXECUTION_ROLE, // What
+        sabVoting, // Manager
+      ]),
     },
 
     // Grant Agent's execute permission
     {
       to: acl,
-      data: agent && abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeDelay,            // Who
-          agent,                     // Where
-          roles.AGENT_EXECUTE_ROLE,  // What
-        ]
-      )
+      data:
+        agent &&
+        abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+          committeeDelay, // Who
+          agent, // Where
+          roles.AGENT_EXECUTE_ROLE, // What
+        ]),
     },
     // Grant Agent's run script permission
     {
       to: acl,
-      data: agent && abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeDelay,               // Who
-          agent,                        // Where
-          roles.AGENT_RUN_SCRIPT_ROLE,  // What
-        ]
-      )
+      data:
+        agent &&
+        abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+          committeeDelay, // Who
+          agent, // Where
+          roles.AGENT_RUN_SCRIPT_ROLE, // What
+        ]),
     },
     // Grant Finance's create payments permission
     {
       to: acl,
-      data: finance && abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeDelay,                      // Who
-          finance,                             // Where
-          roles.FINANCE_CREATE_PAYMENTS_ROLE,  // What
-        ]
-      )
+      data:
+        finance &&
+        abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+          committeeDelay, // Who
+          finance, // Where
+          roles.FINANCE_CREATE_PAYMENTS_ROLE, // What
+        ]),
     },
     // Grant Catalyst's modify permission
     {
       to: acl,
-      data: catalyst && abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeDelay,               // Who
-          catalyst,                     // Where
-          roles.CATALYST_MODIFY_ROLE,   // What
-        ]
-      )
+      data:
+        catalyst &&
+        abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+          committeeDelay, // Who
+          catalyst, // Where
+          roles.CATALYST_MODIFY_ROLE, // What
+        ]),
     },
     // Grant POI List's add permission
     {
       to: acl,
-      data: poiList && abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeDelay,       // Who
-          poiList,              // Where
-          roles.LIST_ADD_ROLE,  // What
-        ]
-      )
+      data:
+        poiList &&
+        abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+          committeeDelay, // Who
+          poiList, // Where
+          roles.LIST_ADD_ROLE, // What
+        ]),
     },
     // Grant POI List's remove permission
     {
       to: acl,
-      data: poiList && abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeDelay,          // Who
-          poiList,                 // Where
-          roles.LIST_REMOVE_ROLE,  // What
-        ]
-      )
+      data:
+        poiList &&
+        abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+          committeeDelay, // Who
+          poiList, // Where
+          roles.LIST_REMOVE_ROLE, // What
+        ]),
     },
     // Grant Name List's add permission
     {
       to: acl,
-      data: poiList && abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeDelay,       // Who
-          nameList,             // Where
-          roles.LIST_ADD_ROLE,  // What
-        ]
-      )
+      data:
+        poiList &&
+        abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+          committeeDelay, // Who
+          nameList, // Where
+          roles.LIST_ADD_ROLE, // What
+        ]),
     },
     // Grant Name List's remove permission
     {
       to: acl,
-      data: poiList && abi.encodeFunctionCall(
-        abis.ACL_GRANT_PERMISSION,
-        [
-          committeeDelay,          // Who
-          nameList,                // Where
-          roles.LIST_REMOVE_ROLE,  // What
-        ]
-      )
+      data:
+        poiList &&
+        abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
+          committeeDelay, // Who
+          nameList, // Where
+          roles.LIST_REMOVE_ROLE, // What
+        ]),
     },
-  ].filter(step => !!step.data)
+  ].filter((step) => !!step.data)
   const installCommitteeDelayCallsScript = encodeCallsScript(installCommitteeDelayScriptSteps)
   const sabVoteForwardDataForDelay = encodeForward(installCommitteeDelayCallsScript)
   const sabVoteForwardCallScriptForDelay = encodeCallsScript([{ to: sabVoting, data: sabVoteForwardDataForDelay }])
@@ -453,7 +404,9 @@ async function main() {
   console.log(`    { "to": "${sabTokenManager}", "data": "${sabForwardDataForDelay}" }`)
   if (DEBUG) {
     console.log()
-    console.log(`Calls script steps for installing Committee Delay (length: ${installCommitteeDelayScriptSteps.length}):`)
+    console.log(
+      `Calls script steps for installing Committee Delay (length: ${installCommitteeDelayScriptSteps.length}):`
+    )
     console.log(installCommitteeDelayScriptSteps)
     console.log()
   }

@@ -31,7 +31,7 @@ const EMPTY_CALLSCRIPT = '0x00000001'
  * @param {Array<CallsScriptAction>} actions
  * @returns {string}
  */
-function encodeCallsScript (actions) {
+function encodeCallsScript(actions) {
   return actions.reduce((script, { to, data }) => {
     const address = abi.encodeParameter('address', to)
     const dataLength = abi.encodeParameter('uint256', (data.length - 2) / 2).toString('hex')
@@ -40,7 +40,7 @@ function encodeCallsScript (actions) {
   }, CALLSCRIPT_ID)
 }
 
-function encodeForward (executionScript) {
+function encodeForward(executionScript) {
   if (!executionScript || executionScript === '0x') {
     executionScript = EMPTY_CALLSCRIPT
   }
