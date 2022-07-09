@@ -186,6 +186,25 @@ const TOKEN_MANAGER_MINT = {
   type: 'function',
 }
 
+const TOKEN_MANAGER_BURN = {
+  constant: false,
+  inputs: [
+    {
+      name: '_holder',
+      type: 'address',
+    },
+    {
+      name: '_amount',
+      type: 'uint256',
+    },
+  ],
+  name: 'burn',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
 const DELAY_INITIALIZE = {
   constant: false,
   inputs: [
@@ -278,6 +297,25 @@ const CHANGE_ADMIN = {
   type: 'function',
 }
 
+const UPGRADE = {
+  constant: false,
+  inputs: [
+    {
+      name: 'newContract',
+      type: 'address',
+    },
+    {
+      name: 'data',
+      type: 'bytes',
+    },
+  ],
+  name: 'upgrade',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
 module.exports = {
   // Forwarding
   FORWARD,
@@ -290,6 +328,7 @@ module.exports = {
   VOTING_NEW_VOTE,
   TOKEN_MANAGER_INITIALIZE,
   TOKEN_MANAGER_MINT,
+  TOKEN_MANAGER_BURN,
   DELAY_INITIALIZE,
   CATALYST_REMOVE_CATALYST,
   AGENT_EXECUTE,
@@ -297,4 +336,5 @@ module.exports = {
 
   // External contracdts
   CHANGE_ADMIN,
+  UPGRADE,
 }

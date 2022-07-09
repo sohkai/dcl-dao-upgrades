@@ -9,7 +9,7 @@ const {
   encoding: { encodeCallsScript, encodeForward },
 } = utils
 
-const { orgUrl, kernel, acl, sabVoting, sabTokenManager, communityVoting, councilDelay } = chainEnv.buildConfig()
+const { orgUrl, kernel, acl, sabVoting, sabTokenManager, communityVoting, committeeDelay } = chainEnv.buildConfig()
 const provider = chainEnv.getProvider()
 
 /*******************
@@ -39,7 +39,7 @@ async function main() {
   console.log(`  - SAB Voting:            ${sabVoting}`)
   console.log(`  - SAB Token Manager:     ${sabTokenManager}`)
   console.log(`  - Community Voting:      ${communityVoting}`)
-  console.log(`  - Council delay:         ${councilDelay}`)
+  console.log(`  - Committee delay:         ${committeeDelay}`)
   console.log()
   console.log('And planning these changes as steps:')
   console.log(`  1. Deny list`)
@@ -49,8 +49,8 @@ async function main() {
   console.log(`      - symbol: ${denyListInitializationParams.symbol}`)
   console.log(`      - type: ${denyListInitializationParams.type}`)
   console.log(`    - Setting permissions:`)
-  console.log(`      + AddressDenyList:ADD_ROLE     => [Community Voting, Council Delay] <> SAB Voting`)
-  console.log(`      + AddressDenyList:REMOVE_ROLE  => [Community Voting, Council Delay] <> SAB Voting`)
+  console.log(`      + AddressDenyList:ADD_ROLE     => [Community Voting, Committee Delay] <> SAB Voting`)
+  console.log(`      + AddressDenyList:REMOVE_ROLE  => [Community Voting, Committee Delay] <> SAB Voting`)
   console.log()
   console.log('============================================================')
   console.log()
@@ -82,11 +82,11 @@ async function main() {
         sabVoting, // Manager
       ]),
     },
-    // Grant add permission to Council Delay
+    // Grant add permission to Committee Delay
     {
       to: acl,
       data: abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
-        councilDelay, // Who
+        committeeDelay, // Who
         addressDenyList, // Where
         roles.LIST_ADD_ROLE, // What
       ]),
@@ -101,11 +101,11 @@ async function main() {
         sabVoting, // Manager
       ]),
     },
-    // Grant remove permission to Council Delay
+    // Grant remove permission to Committee Delay
     {
       to: acl,
       data: abi.encodeFunctionCall(abis.ACL_GRANT_PERMISSION, [
-        councilDelay, // Who
+        committeeDelay, // Who
         addressDenyList, // Where
         roles.LIST_REMOVE_ROLE, // What
       ]),
