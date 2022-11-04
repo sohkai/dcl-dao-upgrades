@@ -278,6 +278,25 @@ const CHANGE_ADMIN = {
   type: 'function',
 }
 
+const UPGRADE = {
+  constant: false,
+  inputs: [
+    {
+      name: 'newContract',
+      type: 'address',
+    },
+    {
+      name: 'data',
+      type: 'bytes',
+    },
+  ],
+  name: 'upgrade',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
 module.exports = {
   // Forwarding
   FORWARD,
@@ -297,4 +316,5 @@ module.exports = {
 
   // External contracdts
   CHANGE_ADMIN,
+  UPGRADE,
 }
