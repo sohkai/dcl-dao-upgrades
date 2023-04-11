@@ -21,7 +21,7 @@ async function main() {
   console.log('============================================================')
   console.log()
   console.log(`Planning modifications to the Decentraland DAO on network ${chainEnv.getName()}:`)
-  console.log('  [Agent invocation]')
+  console.log('  Rotate DCL ENS subdomain controller')
   console.log()
   console.log('This organization will be targetted:')
   console.log(`  - Url:                     ${orgUrl}`)
@@ -29,21 +29,28 @@ async function main() {
   console.log(`  - ACL:                     ${acl}`)
   console.log(`  - Agent:                   ${agent}`)
   console.log(`  - SAB Voting:              ${sabVoting}`)
-  console.log(`  - SAB Token Manager:       ${sabTokenManager}`)
   console.log()
   console.log('============================================================')
   console.log()
 
   const agentExecuteExternalAction = [
-    // Example agent action execution to upgrade proxy
     {
       to: agent,
       data: abi.encodeFunctionCall(abis.AGENT_EXECUTE, [
-        '0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d', // current LAND registry
+        '0x2A187453064356c898cAe034EAed119E1663ACb8', // dcl.eth subdomain registrar
         0,
-        abi.encodeFunctionCall(abis.UPGRADE, [
-          '0x554bb6488ba955377359bed16b84ed0822679cdc', // new LAND registry
-          '0x',
+        abi.encodeFunctionCall(abis.REMOVE_CONTROLLER, [
+          '0x6843291BD86857D97F0D269e698939fb10D60772', // old controller
+        ]),
+      ]),
+    },
+    {
+      to: agent,
+      data: abi.encodeFunctionCall(abis.AGENT_EXECUTE, [
+        '0x2A187453064356c898cAe034EAed119E1663ACb8', // dcl.eth subdomain registrar
+        0,
+        abi.encodeFunctionCall(abis.ADD_CONTROLLER, [
+          '0xBe92B49aEE993ADea3a002AdCDA189A2b7deC56c', // new controller
         ]),
       ]),
     },
@@ -55,7 +62,7 @@ async function main() {
   ])
   const sabForwardDataForTokenManager = encodeForward(sabVoteForwardCallScriptForTokenManager)
 
-  console.log('[Agent execution]')
+  console.log('Rotate DCL ENS subdomain controller')
   console.log('  Raw data to create a vote through SAB Token Manager:')
   console.log(`    ${sabForwardDataForTokenManager}`)
   console.log()

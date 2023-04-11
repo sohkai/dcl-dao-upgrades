@@ -316,6 +316,36 @@ const UPGRADE = {
   type: 'function',
 }
 
+const ADD_CONTROLLER = {
+  constant: false,
+  inputs: [{ internalType: 'address', name: 'controller', type: 'address' }],
+  name: 'addController',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
+const REMOVE_CONTROLLER = {
+  constant: false,
+  inputs: [{ internalType: 'address', name: 'controller', type: 'address' }],
+  name: 'removeController',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
+const RELEASE = {
+  constant: false,
+  inputs: [],
+  name: 'release',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
 module.exports = {
   // Forwarding
   FORWARD,
@@ -337,4 +367,7 @@ module.exports = {
   // External contracdts
   CHANGE_ADMIN,
   UPGRADE,
+  ADD_CONTROLLER,
+  REMOVE_CONTROLLER,
+  RELEASE,
 }
