@@ -316,6 +316,21 @@ const UPGRADE = {
   type: 'function',
 }
 
+const UPGRADE_TO = {
+  constant: false,
+  inputs: [
+    {
+      name: 'newImplementation',
+      type: 'address',
+    },
+  ],
+  name: 'upgradeTo',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
 const ADD_CONTROLLER = {
   constant: false,
   inputs: [{ internalType: 'address', name: 'controller', type: 'address' }],
@@ -367,6 +382,7 @@ module.exports = {
   // External contracdts
   CHANGE_ADMIN,
   UPGRADE,
+  UPGRADE_TO,
   ADD_CONTROLLER,
   REMOVE_CONTROLLER,
   RELEASE,
