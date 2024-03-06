@@ -53,7 +53,7 @@ async function main() {
   ])
   const sabForwardDataForTokenManager = encodeForward(sabVoteForwardCallScriptForTokenManager)
 
-  console.log('[Agent execution]')
+  console.log('Upgrade Estate Registry')
   console.log('  Raw data to create a vote through SAB Token Manager:')
   console.log(`    ${sabForwardDataForTokenManager}`)
   console.log()
