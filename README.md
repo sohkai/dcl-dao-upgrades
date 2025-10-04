@@ -1,8 +1,14 @@
 # Decentraland DAO Upgrades
 
-Scripts to enact upgrades to Decentraland's DAO (an Aragon v1 DAO).
+Historical documentation and scripts to enact upgrades to Decentraland's DAO (an Aragon v1 DAO).
 
-Each script generate one or more transactions, usually creating votes through the SAB for the desired change(s).
+Each script generates one or more transactions, usually creating votes through the SAB for the desired change(s).
+
+## History
+
+Decentraland's DAO was constructed by a DAO template in early 2020 and has seen successive upgrades over time. In 2021 the process of enacting changes was formalized into this repo.
+
+The earlier history is documented in [`/history`](history/).
 
 ## Scripts
 
