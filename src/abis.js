@@ -258,6 +258,33 @@ const AGENT_EXECUTE = {
   type: 'function',
 }
 
+const FINANCE_NEW_IMMEDIATE_PAYMENT = {
+  constant: false,
+  inputs: [
+    {
+      name: '_token',
+      type: 'address',
+    },
+    {
+      name: '_receiver',
+      type: 'address',
+    },
+    {
+      name: '_amount',
+      type: 'uint256',
+    },
+    {
+      name: '_reference',
+      type: 'string',
+    },
+  ],
+  name: 'newImmediatePayment',
+  outputs: [],
+  payable: false,
+  stateMutability: 'nonpayable',
+  type: 'function',
+}
+
 const LIST_INITIALIZE = {
   constant: false,
   inputs: [
@@ -377,6 +404,7 @@ module.exports = {
   DELAY_INITIALIZE,
   CATALYST_REMOVE_CATALYST,
   AGENT_EXECUTE,
+  FINANCE_NEW_IMMEDIATE_PAYMENT,
   LIST_INITIALIZE,
 
   // External contracdts

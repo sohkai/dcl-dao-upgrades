@@ -19,6 +19,7 @@ The earlier history is documented in [`/history`](history/).
 - [`2023-04-vesting-release`](scripts/2023-04-vesting-release.js): release MANA vesting to Decentraland DAO
 - [`2024-03-estate-upgrade`](scripts/2024-03-estate-upgrade.js): upgrade implementation of Estate Registry contract
 - [`2024-03-committee-change`](scripts/2024-03-committee-change.js): rotate a committee member
+- [`2026-06-treasury-withdrawal`](scripts/2026-06-treasury-withdrawal.js): withdraw treasury assets to Council Ops and Avantgarde+DCL multisigs
 
 ## Run
 
