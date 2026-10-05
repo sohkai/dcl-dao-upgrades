@@ -19,6 +19,7 @@ The earlier history is documented in [`/history`](history/).
 - [`2023-04-vesting-release`](scripts/2023-04-vesting-release.js): release MANA vesting to Decentraland DAO
 - [`2024-03-estate-upgrade`](scripts/2024-03-estate-upgrade.js): upgrade implementation of Estate Registry contract
 - [`2024-03-committee-change`](scripts/2024-03-committee-change.js): rotate a committee member
+- [`2026-10-sab-member-add`](scripts/2026-10-sab-member-add.js): add a SAB member
 
 ## Run
 
